@@ -1,50 +1,37 @@
-"use client";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+import HomePage from "./pages/HomePage"
+import MatchListingPage from "./pages/MatchListingPage"
+import MatchDetailsPage from "./pages/MatchDetailsPage"
+import TournamentPage from "./pages/TournamentPage"
+import UserDashboardPage from "./pages/UserDashboardPage"
+import AdminPanelPage from "./pages/AdminPanelPage"
+import RewardsPage from "./pages/RewardsPage"
+import EmergencySettingsPage from "./pages/EmergencySettingsPage"
 
-import { useState } from "react";
-import WalletConnect from "./components/WalletConnect";
-import MatchList from "./components/MatchList";
-import ActiveBets from "./components/ActiveBets";
-
-interface Bet {
-  matchId: number;
-  team: string;
-  amount: number;
-}
-
-export default function App() {
-  const [walletConnected, setWalletConnected] = useState(false);
-  const [activeBets, setActiveBets] = useState<Bet[]>([]);
-
-  const connectWallet = () => {
-    // :: todo
-    setWalletConnected(true);
-  };
-
-  const addBet = (bet: Bet) => {
-    setActiveBets([...activeBets, bet]);
-  };
-
+function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-blue-600 text-white p-4">
-        <h1 className="text-2xl font-bold">Esports Betting</h1>
-      </header>
-      <main className="container mx-auto p-4">
-        {!walletConnected ? (
-          <WalletConnect onConnect={connectWallet} />
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <h2 className="text-xl font-semibold mb-4">Available Matches</h2>
-              <MatchList onPlaceBet={addBet} />
-            </div>
-            <div>
-              <h2 className="text-xl font-semibold mb-4">Active Bets</h2>
-              <ActiveBets bets={activeBets} />
-            </div>
-          </div>
-        )}
-      </main>
-    </div>
-  );
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/matches" element={<MatchListingPage />} />
+            <Route path="/match/:id" element={<MatchDetailsPage />} />
+            <Route path="/tournament/:id" element={<TournamentPage />} />
+            <Route path="/my-bets" element={<UserDashboardPage />} />
+            <Route path="/admin" element={<AdminPanelPage />} />
+            <Route path="/rewards" element={<RewardsPage />} />
+            <Route path="/emergency-settings" element={<EmergencySettingsPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
+  )
 }
+
+export default App
+

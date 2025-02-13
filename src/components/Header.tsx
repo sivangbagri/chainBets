@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const Header: React.FC = () => {
   const [walletConnected, setWalletConnected] = useState(false);
+
   const WalletConnect = async () => {
     try {
       if (window.ethereum == null) {
@@ -21,6 +22,7 @@ const Header: React.FC = () => {
       alert(e);
     }
   };
+
   return (
     <header className="bg-gray-800 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">

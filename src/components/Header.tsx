@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const Header: React.FC = () => {
   const [walletConnected, setWalletConnected] = useState(false);
+  const [address, setAddress] = useState("");
 
   const WalletConnect = async () => {
     try {
@@ -16,6 +17,7 @@ const Header: React.FC = () => {
         const signer = await provider.getSigner();
         console.log("Connected Address:", await signer.getAddress());
         setWalletConnected(true);
+        setAddress(await signer.getAddress());
         return signer;
       }
     } catch (e) {
@@ -49,7 +51,7 @@ const Header: React.FC = () => {
                   Connect Wallet
                 </button>
               ) : (
-                "Connected"
+                `${address}`
               )}
             </li>
           </ul>

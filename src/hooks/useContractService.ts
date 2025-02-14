@@ -11,6 +11,7 @@ export function useContractService(addresses: ContractAddresses) {
   useEffect(() => {
     const initService = async () => {
       try {
+        setLoading(true);
         const service = new ContractService(addresses);
         console.log("servie:" , service)
         await service.init();

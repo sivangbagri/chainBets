@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import { Match } from "../types/Contracts";
 import { useContractService } from "../hooks/useContractService";
 import { ContractAddresses } from "../types/Contracts";
+import { Link } from "react-router";
 interface MatchListProps {
   addresses: ContractAddresses;
   onMatchSelect?: (matchId: number) => void;
@@ -181,12 +182,14 @@ const MatchCard: React.FC<MatchCardProps> = ({ match, onSelect }) => {
           </div>
         </div>
         <div className="mt-6">
-          <button
-            onClick={() => onSelect?.(match.id)}
-            className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 font-semibold transition-colors"
+           
+          <Link
+            // onClick={() => onSelect?.(match.id)}
+            to={`/match/${match.id}`}
+            className="p-3 w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 font-semibold transition-colors"
           >
-            Place Bet
-          </button>
+            View
+          </Link>
         </div>
       </div>
     </div>

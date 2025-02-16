@@ -1,61 +1,93 @@
-import type React from "react"
+import React from 'react';
+import { useContractService } from '../hooks/useContractService';
+import { useUserBets } from '../hooks/useUserBets';
+import { formatEther } from 'ethers';
+import { ContractAddresses } from '../types/Contracts';
+import { useState } from 'react';
+  
+export const UserDashboardPage:React.FC<{addresses:ContractAddresses}>=({ addresses } )=> {
+  const { service, loading: serviceLoading } = useContractService(addresses);
+  const { bets, loading: betsLoading, error } = useUserBets(service);
+  const [claimingMatchId, setClaimingMatchId] = useState<number | null>(null);
 
-const UserDashboardPage: React.FC = () => {
-  // Mock data for user bets
-  const userBets = [
-    { id: 1, matchId: 1, teamA: "Team A", teamB: "Team B", betAmount: 100, prediction: "Team A", status: "pending" },
-    { id: 2, matchId: 2, teamA: "Team C", teamB: "Team D", betAmount: 50, prediction: "Team D", status: "won" },
-    // Add more mock bets here
-  ]
+  const handleClaim = async (matchId: number) => {
+    if (!service) return;
+
+    try {
+      setClaimingMatchId(matchId);
+      const contracts = await service.getContracts();
+      const tx = await contracts.bettingPool.claimWinnings(matchId);
+      await tx.wait();
+      
+      // Refresh bets after successful claim
+      window.location.reload();
+    } catch (err) {
+      console.error("Failed to claim winnings:", err);
+      alert("Failed to claim winnings. Please try again.");
+    } finally {
+      setClaimingMatchId(null);
+    }
+  };  
+
+  const getBetStatus = (bet: typeof bets[0]) => {
+    if (!bet.isFinalized) return { label: "pending", color: "bg-yellow-200" };
+    if (bet.claimed) return { label: "claimed", color: "bg-gray-200" };
+    if (bet.winner === bet.prediction) return { label: "won", color: "bg-green-200" };
+    return { label: "lost", color: "bg-red-200" };
+  };
+
+  if (serviceLoading || betsLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="container mx-auto mt-8">
-      <h1 className="text-3xl font-bold mb-4">My Bets</h1>
-      <div className="overflow-x-auto">
-        <table className="w-full bg-white shadow-md rounded">
-          <thead>
-            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-              <th className="py-3 px-6 text-left">Match</th>
-              <th className="py-3 px-6 text-left">Bet Amount</th>
-              <th className="py-3 px-6 text-left">Prediction</th>
-              <th className="py-3 px-6 text-left">Status</th>
+    <div className="max-w-6xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6">My Bets</h1>
+      
+      <div className="bg-white rounded-lg shadow overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">MATCH</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">BET AMOUNT</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">PREDICTION</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">STATUS</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-700">ACTIONS</th>
             </tr>
           </thead>
-          <tbody className="text-gray-600 text-sm font-light">
-            {userBets.map((bet) => (
-              <tr key={bet.id} className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="py-3 px-6 text-left whitespace-nowrap">
-                  <span className="font-medium">
-                    {bet.teamA} vs {bet.teamB}
-                  </span>
-                </td>
-                <td className="py-3 px-6 text-left">
-                  <span>{bet.betAmount} WETH</span>
-                </td>
-                <td className="py-3 px-6 text-left">
-                  <span>{bet.prediction}</span>
-                </td>
-                <td className="py-3 px-6 text-left">
-                  <span
-                    className={`py-1 px-3 rounded-full text-xs ${
-                      bet.status === "pending"
-                        ? "bg-yellow-200 text-yellow-600"
-                        : bet.status === "won"
-                          ? "bg-green-200 text-green-600"
-                          : "bg-red-200 text-red-600"
-                    }`}
-                  >
-                    {bet.status}
-                  </span>
-                </td>
-              </tr>
-            ))}
+          <tbody className="divide-y divide-gray-200">
+            {bets.map((bet) => {
+              const status = getBetStatus(bet);
+              return (
+                <tr key={bet.matchId}>
+                  <td className="px-6 py-4 text-sm text-gray-900">{bet.matchName}</td>
+                  <td className="px-6 py-4 text-sm text-gray-900">
+                    {formatEther(bet.amount)} WETH
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-900">
+                    Team {bet.prediction === 1 ? 'A' : 'B'}
+                  </td>
+                  <td className="px-6 py-4 text-sm">
+                    <span className={`${status.color} px-2 py-1 rounded-full text-xs`}>
+                      {status.label}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-sm">
+                    {bet.isFinalized && bet.winner === bet.prediction && !bet.claimed && (
+                      <button
+                        onClick={() => handleClaim(bet.matchId)}
+                        disabled={claimingMatchId === bet.matchId}
+                        className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+                      >
+                        {claimingMatchId === bet.matchId ? 'Claiming...' : 'Claim'}
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
     </div>
-  )
+  );
 }
-
-export default UserDashboardPage
-

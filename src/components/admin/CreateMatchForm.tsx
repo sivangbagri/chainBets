@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAdminBetting } from "../../hooks/useAdminBetting";
 import { ContractAddresses } from "../../types/Contracts";
 import { AdminMatch } from "../../types/Admin";
+import { ethers } from "ethers";
 interface MatchListProps {
   addresses: ContractAddresses;
   onMatchSelect?: (matchId: number) => void;
@@ -116,7 +117,7 @@ export const CreateMatchForm: React.FC<MatchListProps> = ({ addresses }) => {
             onChange={(e) =>
               setMatch((prev) => ({
                 ...prev,
-                minBet: BigInt(e.target.value),
+                minBet: ethers.parseEther(e.target.value || "0"), // Convert ETH to wei
               }))
             }
             placeholder="Minimum Bet"
@@ -138,7 +139,7 @@ export const CreateMatchForm: React.FC<MatchListProps> = ({ addresses }) => {
             onChange={(e) =>
               setMatch((prev) => ({
                 ...prev,
-                maxBet: BigInt(e.target.value),
+                maxBet: ethers.parseEther(e.target.value || "0"), // Convert ETH to wei
               }))
             }
             placeholder="Maximum Bet"

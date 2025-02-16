@@ -1,3 +1,4 @@
+// utils/Contracts.ts
 import { BrowserProvider, JsonRpcSigner, Contract } from "ethers";
 import { ContractAddresses } from "../types/Contracts";
 import BETTING_POOL_ABI from "../ABI/BettingPool.json";
@@ -17,7 +18,9 @@ export class ContractService {
     this.provider = new BrowserProvider(window.ethereum);
     this.addresses = addresses;
   }
-
+  get getSigner() {
+    return this.signer;
+  }
   async init(): Promise<void> {
     const network = await this.provider.getNetwork();
     console.log("Connected to network:", {

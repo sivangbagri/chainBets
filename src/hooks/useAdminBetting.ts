@@ -1,3 +1,4 @@
+// hoks/useAdminBetting.ts
 import { useState } from "react";
 import { useContractService } from "./useContractService";
  import { ContractAddresses } from "../types/Contracts";

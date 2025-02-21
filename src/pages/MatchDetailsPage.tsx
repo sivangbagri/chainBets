@@ -67,6 +67,10 @@ const MatchDetailsPage: React.FC<MatchDetailsProp> = ({ addresses }) => {
           <strong>Start Time:</strong>{" "}
           {new Date(Number(currentMatch?.startTime)*1000).toLocaleString()}
         </p>
+        <p className="mb-2">
+          <strong>End Time:</strong>{" "}
+          {new Date(Number(currentMatch?.endTime)*1000).toLocaleString()}
+        </p>
         {/* <p className="mb-2">
           <strong>Total Bets:</strong> {currentMatch?.totalBets} WETH
         </p> */}

@@ -12,6 +12,7 @@ import EmergencySettingsPage from "./pages/EmergencySettingsPage";
 import { CreateMatchForm } from "./components/admin/CreateMatchForm";
 import { CommunityPage } from "./pages/CommunityPage";
 import { RegisterPage } from "./pages/Register";
+import { FinalizeMatchForm } from "./components/admin/FinalizeMatchForm";
 
 function App() {
   const addresses = {
@@ -30,6 +31,8 @@ function App() {
             <Route path="/matches" element={<MatchList addresses={addresses} />}
             />
             <Route path="/create-match" element={<CreateMatchForm addresses={addresses} />}
+            />
+            <Route path="/finalize-match" element={<FinalizeMatchForm addresses={addresses} />}
             />
             <Route path="/match/:id" element={<MatchDetailsPage addresses={addresses} />}
             />

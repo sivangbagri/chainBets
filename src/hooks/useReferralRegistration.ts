@@ -23,10 +23,10 @@ export function useReferralRegistration(contractService: ContractService | null)
       // Attempt to register the referral
       const tx = await contracts.communityHub.registerReferral(referrerAddress);
       await tx.wait();
-      const refereeRepTx = await contracts.communityHub.updateReputation(userAddress, 5);
+      const refereeRepTx = await contracts.communityHub._updateReputation(userAddress, 5);
       await refereeRepTx.wait();
       
-      const referrerRepTx = await contracts.communityHub.updateReputation(referrerAddress, 10);
+      const referrerRepTx = await contracts.communityHub._updateReputation(referrerAddress, 10);
       await referrerRepTx.wait();
       // Force page refresh to update stats
       window.location.reload();

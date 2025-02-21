@@ -166,8 +166,6 @@ export function BettingForm({
         throw new Error("Contracts are not available");
       }
 
-       
-
       try {
         const txV = await contracts.bettingPool.validateBetParameters(
           match.id,
@@ -187,7 +185,6 @@ export function BettingForm({
         match.id,
         amountBigInt,
         prediction
-         
       );
 
       console.log("Transaction sent:", tx.hash);
@@ -202,7 +199,7 @@ export function BettingForm({
     } catch (error: any) {
       console.error("Detailed error:", error);
       const errorMessage = error.message || "Unknown error occurred";
-       setValidationStatus({ isValid: false, message: errorMessage });
+      setValidationStatus({ isValid: false, message: errorMessage });
       throw error;
     } finally {
       setPlacingBet(false);
@@ -225,7 +222,6 @@ export function BettingForm({
 
   return (
     <>
-      
       <div className="p-6 border rounded-lg">
         <h3 className="text-xl font-bold mb-4">Place Your Bet</h3>
         <WETHApproval

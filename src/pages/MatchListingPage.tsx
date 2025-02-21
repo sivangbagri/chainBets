@@ -58,7 +58,7 @@ export const MatchList: React.FC<MatchListProps> = ({
           (match) => match && match.startTime && match.startTime > currentTime
         );
 
-        setMatches(activeMatches);
+        setMatches(matches);
         return true;
       } catch (err) {
         console.error("Failed to load matches:", err);

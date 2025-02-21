@@ -42,3 +42,9 @@
     communityHub: string;
     weth: string;
   }
+  export interface CommunityStats {
+    reputation: number;
+    referralCount: number;
+    referralRewards: string;
+    referrer: string | null;
+  }

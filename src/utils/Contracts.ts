@@ -34,7 +34,7 @@ export class ContractService {
     if (!this.signer) {
       throw new Error("Signer not initialized");
     }
-    console.log("Signer:", this.signer);
+    // console.log("Signer:", this.signer);
 
     return {
       bettingPool: new Contract(

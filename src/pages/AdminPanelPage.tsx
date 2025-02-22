@@ -10,13 +10,13 @@ const AdminPanelPage: React.FC<{ addresses: ContractAddresses }> = ({
   const [isadmin, setIsadmin] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
+    const correct_pwd = import.meta.env.VITE_ADMIN_PASSWORD;
     e.preventDefault();
-    if (password === "chain26") {
+    if (password === correct_pwd) {
       alert("Login Successful");
       setIsadmin(true);
-
     } else {
-      alert("Wrong password.")
+      alert("Wrong password.");
       setIsadmin(false);
     }
   };

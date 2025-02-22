@@ -4,6 +4,8 @@ import { useCommunityStats } from '../../hooks/useCommunityStats';
 import { ContractAddresses } from '../../types/Contracts';
 import { StatCard } from './StatCard';
 import Loader from '../Loader';
+import weth from "../assets/weth.png";
+
 /**
  * Displays user's community stats and achievements
  */
@@ -16,8 +18,8 @@ export function CommunityDashboard({ addresses }: { addresses: ContractAddresses
   if (!stats) return null;
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-xl font-semibold mb-4">Your Community Stats</h2>
+    <div className="bg-[#0B0F13] border border-[#1C2127] rounded-xl p-8">
+  <h2 className="text-2xl font-bold text-white mb-6">Your Community Stats</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <StatCard
           title="Reputation Score"

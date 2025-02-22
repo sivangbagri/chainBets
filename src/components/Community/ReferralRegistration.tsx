@@ -1,14 +1,19 @@
 // components/Community/ReferralRegistration.tsx
-import React, { useState } from 'react';
-import { useReferralRegistration } from '../../hooks/useReferralRegistration';
+import React, { useState } from "react";
+import { useReferralRegistration } from "../../hooks/useReferralRegistration";
 import { ContractService } from "../../utils/Contracts";
 
 /**
  * Handles new user registration with referral
  */
-export function ReferralRegistration({ contractService }: { contractService: ContractService | null }) {
-  const [referrerAddress, setReferrerAddress] = useState('');
-  const { registerReferral, registering, error } = useReferralRegistration(contractService);
+export function ReferralRegistration({
+  contractService,
+}: {
+  contractService: ContractService | null;
+}) {
+  const [referrerAddress, setReferrerAddress] = useState("");
+  const { registerReferral, registering, error } =
+    useReferralRegistration(contractService);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,11 +27,14 @@ export function ReferralRegistration({ contractService }: { contractService: Con
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-xl font-semibold mb-4">Register with Referral</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="bg-[#0B0F13] border border-[#1C2127] rounded-xl p-8">
+      <h2 className="text-2xl font-bold text-white mb-6">
+        Register with Referral
+      </h2>
+
+      <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-[#A1A1A6] text-sm mb-3">
             Referrer Address
           </label>
           <input
@@ -34,18 +42,27 @@ export function ReferralRegistration({ contractService }: { contractService: Con
             value={referrerAddress}
             onChange={(e) => setReferrerAddress(e.target.value)}
             placeholder="0x..."
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+            className="w-full p-4 bg-[#0F1418] border border-[#1C2127] rounded-lg text-white placeholder-[#4D4D4D] focus:border-[#C5FF32] focus:outline-none transition-colors"
           />
         </div>
+
         {error && (
-          <div className="text-red-600 text-sm">{error}</div>
+          <div className="text-[#FF4D4D] text-sm bg-[#1C2127] p-3 rounded-lg">
+            {error}
+          </div>
         )}
+
         <button
           type="submit"
           disabled={registering || !referrerAddress}
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 disabled:opacity-50"
+          className={`w-full py-4 rounded-lg font-medium transition-all duration-200
+          ${
+            registering || !referrerAddress
+              ? "bg-[#1C2127] text-[#A1A1A6] cursor-not-allowed"
+              : "bg-[#C5FF32] text-black hover:bg-[#B2E62D]"
+          }`}
         >
-          {registering ? 'Registering...' : 'Register'}
+          {registering ? "Registering..." : "Register"}
         </button>
       </form>
     </div>

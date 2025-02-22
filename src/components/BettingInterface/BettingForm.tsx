@@ -222,23 +222,28 @@ export function BettingForm({
 
   return (
     <>
-      <div className="p-6 border rounded-lg">
-        <h3 className="text-xl font-bold mb-4">Place Your Bet</h3>
+      <div className="bg-[#0B0F13] border border-[#1C2127] rounded-xl p-8">
+        <h3 className="text-xl font-bold text-white mb-6">Place Your Bet</h3>
+
         <WETHApproval
           requiredAmount={amountBigInt}
           currentAllowance={wethAllowance}
           onApprovalComplete={refreshBalances}
           addresses={addresses}
         />
-        <form onSubmit={handleSubmit} className="space-y-4">
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Team Selection */}
           <div>
-            <label className="block mb-2">Select Team</label>
+            <label className="block text-[#A1A1A6] mb-3">Select Team</label>
             <div className="flex gap-4">
               <button
                 type="button"
                 onClick={() => setPrediction(1)}
-                className={`px-4 py-2 rounded ${
-                  prediction === 1 ? "bg-blue-500 text-white" : "bg-gray-100"
+                className={`px-6 py-3 rounded-lg border transition-all duration-200 ${
+                  prediction === 1
+                    ? "bg-[#C5FF32] border-[#C5FF32] text-black font-medium"
+                    : "bg-transparent border-[#1C2127] text-[#A1A1A6] hover:border-[#C5FF32]"
                 }`}
               >
                 Team A
@@ -246,16 +251,22 @@ export function BettingForm({
               <button
                 type="button"
                 onClick={() => setPrediction(2)}
-                className={`px-4 py-2 rounded ${
-                  prediction === 2 ? "bg-blue-500 text-white" : "bg-gray-100"
+                className={`px-6 py-3 rounded-lg border transition-all duration-200 ${
+                  prediction === 2
+                    ? "bg-[#C5FF32] border-[#C5FF32] text-black font-medium"
+                    : "bg-transparent border-[#1C2127] text-[#A1A1A6] hover:border-[#C5FF32]"
                 }`}
               >
-                Team B{" "}
+                Team B
               </button>
             </div>
           </div>
+
+          {/* Bet Amount Input */}
           <div>
-            <label className="block mb-2">Bet Amount (WETH)</label>
+            <label className="block text-[#A1A1A6] mb-3">
+              Bet Amount (WETH)
+            </label>
             <input
               type="number"
               value={amount}
@@ -263,20 +274,24 @@ export function BettingForm({
               step="0.000000000000000001"
               min={ethers.formatEther(match.minBet)}
               max={ethers.formatEther(match.maxBet)}
-              className="w-full p-2 border rounded"
+              className="w-full p-4 bg-[#0F1418] border border-[#1C2127] rounded-lg text-white focus:border-[#C5FF32] focus:outline-none transition-colors"
               placeholder="Enter amount"
             />
-            <div className="text-sm text-gray-500 mt-1">
+            <div className="text-sm text-[#A1A1A6] mt-2">
               Balance: {ethers.formatEther(wethBalance)} WETH
             </div>
           </div>
+
+          {/* Potential Winnings */}
           {amount && (
-            <div className="p-4 bg-gray-50 rounded">
-              <p>
+            <div className="p-4 bg-[#0F1418] border border-[#1C2127] rounded-lg">
+              <p className="text-[#C5FF32]">
                 Potential Winnings: {ethers.formatEther(potentialWinnings)} WETH
               </p>
             </div>
           )}
+
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={
@@ -288,7 +303,18 @@ export function BettingForm({
               aboveMaxBet ||
               amountBigInt > wethAllowance
             }
-            className="w-full bg-blue-500 text-white py-2 rounded disabled:opacity-50"
+            className={`w-full py-4 rounded-lg font-medium transition-all duration-200
+        ${
+          !placingBet &&
+          !serviceLoading &&
+          amount &&
+          !insufficientBalance &&
+          !belowMinBet &&
+          !aboveMaxBet &&
+          amountBigInt <= wethAllowance
+            ? "bg-[#C5FF32] text-black hover:bg-[#B2E62D]"
+            : "bg-[#1C2127] text-[#A1A1A6] cursor-not-allowed"
+        }`}
           >
             {placingBet
               ? "Placing Bet..."

@@ -1,4 +1,13 @@
- export interface Match {
+export interface UserRankingData {
+  address: string;
+  reputation: number;
+  referralCount: number;
+  rank: number;
+}
+export interface ReputationUpdatedEvent {
+  args: [string, bigint] & { user: string; newScore: bigint };
+}
+export interface Match {
     id: number;
     name: string;
     startTime: bigint;

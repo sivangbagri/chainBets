@@ -5,6 +5,7 @@ import { Match } from "../types/Contracts";
 import { useContractService } from "../hooks/useContractService";
 import { ContractAddresses } from "../types/Contracts";
 import { Link } from "react-router";
+import Loader from "../components/Loader";
 interface MatchListProps {
   addresses: ContractAddresses;
   onMatchSelect?: (matchId: number) => void;
@@ -65,40 +66,12 @@ export const MatchList: React.FC<MatchListProps> = ({
       }
     };
 
-    // const fetchMatch = async () => {
-    //   if (loading) {
-    //     return <div>Loading contracts...</div>;
-    //   }
-
-    //   if (error) {
-    //     console.log(error);
-    //     return;
-    //   }
-
-    //   if (!service) return;
-
-    //   try {
-    //     const contracts = await service.getContracts();
-    //     console.log("Contract Address:", contracts);
-    //     if (typeof contracts.bettingPool.nextMatchId !== 'function') {
-    //       console.error("nextMatchId method is not available");
-    //       return;
-    //     }
-    //     const nextMatchId = await contracts.bettingPool.getNextMatchId();
-    //     console.log("Next Match ID:", Number(nextMatchId));
-    //     // const match = await contracts.bettingPool.getMatch(1);
-    //     // console.log("Match Data:", match);
-
-    //   } catch (error) {
-    //     console.error("Error fetching match:", error);
-    //   }
-    // };
-
-    // fetchMatch();
+     
+    
     loadMatches();
   }, [service]);
 
-  if (loading) return <div>Loading matches...</div>;
+  if (loading) return <><Loader/></>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (

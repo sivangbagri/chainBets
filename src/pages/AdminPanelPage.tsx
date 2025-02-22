@@ -1,79 +1,68 @@
-import type React from "react"
+import type React from "react";
+import { FinalizeMatchForm } from "../components/admin/FinalizeMatchForm";
+import { CreateMatchForm } from "../components/admin/CreateMatchForm";
+import { ContractAddresses } from "../types/Contracts";
+import { useState } from "react";
+const AdminPanelPage: React.FC<{ addresses: ContractAddresses }> = ({
+  addresses,
+}) => {
+  const [password, setPassword] = useState("");
+  const [isadmin, setIsadmin] = useState(false);
 
-const AdminPanelPage: React.FC = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === "chain26") {
+      alert("Login Successful");
+      setIsadmin(true);
+
+    } else {
+      alert("Wrong password.")
+      setIsadmin(false);
+    }
+  };
   return (
-    <div className="container mx-auto mt-8">
-      <h1 className="text-3xl font-bold mb-4">Admin Panel</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-white shadow-md rounded p-6">
-          <h2 className="text-2xl font-bold mb-4">Update Match Results</h2>
-          <form>
-            <div className="mb-4">
-              <label htmlFor="matchId" className="block text-gray-700 text-sm font-bold mb-2">
-                Match ID
-              </label>
-              <input
-                type="number"
-                id="matchId"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="winner" className="block text-gray-700 text-sm font-bold mb-2">
-                Winner
-              </label>
-              <select
-                id="winner"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              >
-                <option>Select winner</option>
-                <option value="teamA">Team A</option>
-                <option value="teamB">Team B</option>
-              </select>
-            </div>
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Update Result
-            </button>
-          </form>
+    <>
+      {!isadmin ? (
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+          <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
+            <h1 className="text-2xl font-bold text-center">Admin Login</h1>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter admin password"
+                  required
+                />
+              </div>
+              <button type="submit" className="w-full">
+                Login
+              </button>
+            </form>
+          </div>
         </div>
-        <div className="bg-white shadow-md rounded p-6">
-          <h2 className="text-2xl font-bold mb-4">Configure Protocol Settings</h2>
-          <form>
-            <div className="mb-4">
-              <label htmlFor="protocolFee" className="block text-gray-700 text-sm font-bold mb-2">
-                Protocol Fee (%)
-              </label>
-              <input
-                type="number"
-                id="protocolFee"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
+      ) : (
+        <div className="container mx-auto mt-8">
+          <h1 className="text-3xl font-bold mb-4">Admin Panel</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white shadow-md rounded p-6">
+              <h2 className="text-2xl font-bold mb-4">
+                Finalize Match Results
+              </h2>
+              <FinalizeMatchForm addresses={addresses} />
             </div>
-            <div className="mb-4">
-              <label htmlFor="oracleAddress" className="block text-gray-700 text-sm font-bold mb-2">
-                Oracle Address
-              </label>
-              <input
-                type="text"
-                id="oracleAddress"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
+            <div className="bg-white shadow-md rounded p-6">
+              <h2 className="text-2xl font-bold mb-4">Create New Match</h2>
+              <CreateMatchForm addresses={addresses} />
             </div>
-            <button
-              type="submit"
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Update Settings
-            </button>
-          </form>
+          </div>
         </div>
-      </div>
-    </div>
-  )
-}
+      )}
+    </>
+  );
+};
 
-export default AdminPanelPage
-
+export default AdminPanelPage;

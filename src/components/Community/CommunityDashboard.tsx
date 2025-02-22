@@ -3,6 +3,7 @@ import { useContractService } from '../../hooks/useContractService';
 import { useCommunityStats } from '../../hooks/useCommunityStats';
 import { ContractAddresses } from '../../types/Contracts';
 import { StatCard } from './StatCard';
+import Loader from '../Loader';
 /**
  * Displays user's community stats and achievements
  */
@@ -10,7 +11,7 @@ export function CommunityDashboard({ addresses }: { addresses: ContractAddresses
   const { service } = useContractService(addresses);
   const { stats, loading, error } = useCommunityStats(service);
 
-  if (loading) return <div>Loading stats...</div>;
+  if (loading) return <Loader/>
   if (error) return <div>Error: {error.message}</div>;
   if (!stats) return null;
 

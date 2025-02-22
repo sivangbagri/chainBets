@@ -4,6 +4,7 @@ import { useUserBets } from '../hooks/useUserBets';
 import { formatEther } from 'ethers';
 import { ContractAddresses } from '../types/Contracts';
 import { useState } from 'react';
+import Loader from '../components/Loader';
   
 export const UserDashboardPage:React.FC<{addresses:ContractAddresses}>=({ addresses } )=> {
   const { service, loading: serviceLoading } = useContractService(addresses);
@@ -36,7 +37,7 @@ export const UserDashboardPage:React.FC<{addresses:ContractAddresses}>=({ addres
     return { label: "lost", color: "bg-red-200" };
   };
 
-  if (serviceLoading || betsLoading) return <div>Loading...</div>;
+  if (serviceLoading || betsLoading) return <><Loader/></>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (

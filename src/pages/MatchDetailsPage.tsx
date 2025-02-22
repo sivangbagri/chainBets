@@ -5,6 +5,7 @@ import { useContractService } from "../hooks/useContractService";
 import { ContractAddresses } from "../types/Contracts";
 import { useParams } from "react-router-dom";
 import { BettingForm } from "../components/BettingInterface/BettingForm";
+import Loader from "../components/Loader";
 interface MatchDetailsProp {
   addresses: ContractAddresses;
 }
@@ -42,17 +43,8 @@ const MatchDetailsPage: React.FC<MatchDetailsProp> = ({ addresses }) => {
     console.log("match array",currentMatch)
     getMatchDetails();
   }, [id,service]);
-  // const match = {
-  //   id: Number.parseInt(id || "0"),
-  //   teamA: "Team A",
-  //   teamB: "Team B",
-  //   tournament: "Tournament 1",
-  //   startTime: "2025-03-01T12:00:00Z",
-  //   totalBets: 1000,
-  //   minBet: 10,
-  //   maxBet: 1000,
-  // };
-
+ 
+  if (loading) return <><Loader/></>;
   return (
     <div className="container mx-auto mt-8">
       <h1 className="text-3xl font-bold mb-4">

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import HomePage from "./pages/HomePage";
+import {HomePage} from "./pages/HomePage";
 import { MatchList } from "./pages/MatchListingPage";
 import MatchDetailsPage from "./pages/MatchDetailsPage";
 import TournamentPage from "./pages/TournamentPage";
@@ -15,9 +15,9 @@ import { RegisterPage } from "./pages/Register";
 
 function App() {
     const addresses = {
-    bettingPool: "0xdeE81605375942895d01c030a39E4F54B6D8b015",
-    tournament: "0x989843eF8A89F9F8A55835b535B1775409FDBEbc",
-    communityHub: "0x149A3dbb7C92DF2341845e495950EF91E461FbE3",
+    bettingPool: "0x46257225Cc4b95661C0176162eB753120F1173f5",
+    tournament: "0x824956E087c7e10891E66a7e718172C905364b60",
+    communityHub: "0x6E66FeecAD0f3dCc3074f15C49cc46D7Eb5a4c8B",
     weth: "0x4200000000000000000000000000000000000006",
   };
   
@@ -27,7 +27,7 @@ function App() {
         <Header />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage addresses={addresses} />} />
             <Route path="/matches" element={<MatchList addresses={addresses} />}/>
             <Route path="/match/:id" element={<MatchDetailsPage addresses={addresses} />}/>
             <Route path="/tournament/:id" element={<TournamentPage />} />

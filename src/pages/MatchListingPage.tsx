@@ -97,7 +97,7 @@ interface MatchCardProps {
   onSelect?: (matchId: number) => void;
 }
 
-const MatchCard: React.FC<MatchCardProps> = ({ match, onSelect }) => {
+export const MatchCard: React.FC<MatchCardProps> = ({ match, onSelect }) => {
   return (
     <div className="bg-[#0B0F13] border border-[#1C2127] rounded-md p-6 hover:border-[#9dff2c] transition-all duration-200">
       <div className="flex items-center justify-between mb-6">

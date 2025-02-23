@@ -5,8 +5,7 @@ import { formatEther } from 'ethers';
 import { ContractAddresses } from '../types/Contracts';
 import { useState } from 'react';
 import Loader from '../components/Loader';
-import weth from "../assets/weth.png";
-
+ 
 export const UserDashboardPage:React.FC<{addresses:ContractAddresses}>=({ addresses } )=> {
   const { service, loading: serviceLoading } = useContractService(addresses);
   const { bets, loading: betsLoading, error } = useUserBets(service);

@@ -59,7 +59,7 @@ const Header: React.FC = () => {
                 to="/community" 
                 className="text-gray-300 hover:text-[#9dff2c] transition-colors duration-300"
               >
-                Rewards
+                Community
               </Link>
             </li>
           </ul>

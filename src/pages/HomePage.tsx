@@ -7,7 +7,7 @@ import { SmallCard } from "../components/BettingInterface/SmallCard";
 export const HomePage: React.FC<{ addresses: ContractAddresses }> = ({
   addresses,
 }) => {
-  const { service, loading, error } = useContractService(addresses);
+  const { service } = useContractService(addresses);
   const [ongoingMatches, setOngoingMatches] = useState<Match[]>([]);
 
   useEffect(() => {
@@ -48,7 +48,11 @@ export const HomePage: React.FC<{ addresses: ContractAddresses }> = ({
         }
 
         const ongoing = matches.filter(
-          (match) => match && match.startTime && match.endTime > currentTime && match.startTime<currentTime
+          (match) =>
+            match &&
+            match.startTime &&
+            match.endTime > currentTime &&
+            match.startTime < currentTime
         );
 
         setOngoingMatches(ongoing);
@@ -79,12 +83,12 @@ export const HomePage: React.FC<{ addresses: ContractAddresses }> = ({
                 <div>No matches available yet.</div>
               ) : (
                 <div className="bg-black p-5 grid gap-4">
-                  {ongoingMatches.slice(0,2).map((match) => (
+                  {ongoingMatches.slice(0, 2).map((match) => (
                     <SmallCard key={match.id} match={match} />
                   ))}
                 </div>
               )}
-             </div>
+            </div>
           </div>
           {/* Guide section */}
           <div className="bg-[#0B0F13] border border-[#1C2127] rounded-xl p-8 hover:border-[#2A2D2F] transition-all">
@@ -126,20 +130,15 @@ export const HomePage: React.FC<{ addresses: ContractAddresses }> = ({
                 </p>
               </div>
               <Link
-          to="/matches"
-          className="mt-8 inline-flex px-8 py-4 bg-[#C5FF32] text-black rounded-lg font-medium hover:bg-[#B2E62D] transition-all duration-200"
-        >
-          View All Matches
-        </Link>
+                to="/matches"
+                className="mt-8 inline-flex px-8 py-4 bg-[#C5FF32] text-black rounded-lg font-medium hover:bg-[#B2E62D] transition-all duration-200"
+              >
+                View All Matches
+              </Link>
             </div>
           </div>
-          
         </div>
-
-        
       </div>
     </div>
   );
 };
-
- 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ethers, formatEther } from 'ethers';
+import { ethers } from 'ethers';
 import { Match } from "../types/Contracts";
 import { useContractService } from "../hooks/useContractService";
 import { ContractAddresses } from "../types/Contracts";
@@ -24,7 +24,7 @@ const MatchDetailsPage: React.FC<MatchDetailsProp> = ({ addresses }) => {
     totalPoolB: BigInt(0),
   });
 
-  const { service, loading, error } = useContractService(addresses);
+  const { service, loading } = useContractService(addresses);
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {

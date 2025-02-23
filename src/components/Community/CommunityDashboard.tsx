@@ -1,11 +1,9 @@
-import React from 'react';
-import { useContractService } from '../../hooks/useContractService';
+ import { useContractService } from '../../hooks/useContractService';
 import { useCommunityStats } from '../../hooks/useCommunityStats';
 import { ContractAddresses } from '../../types/Contracts';
 import { StatCard } from './StatCard';
 import Loader from '../Loader';
-import weth from "../assets/weth.png";
-
+ 
 /**
  * Displays user's community stats and achievements
  */

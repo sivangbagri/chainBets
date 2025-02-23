@@ -60,7 +60,7 @@ export const MatchList: React.FC<MatchListProps> = ({
           (match) => match && match.startTime && match.startTime > currentTime
         );
 
-        setMatches(matches);
+        setMatches(activeMatches);
         return true;
       } catch (err) {
         console.error("Failed to load matches:", err);
@@ -97,7 +97,7 @@ interface MatchCardProps {
   onSelect?: (matchId: number) => void;
 }
 
-export const MatchCard: React.FC<MatchCardProps> = ({ match, onSelect }) => {
+export const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
   return (
     <div className="bg-[#0B0F13] border border-[#1C2127] rounded-md p-6 hover:border-[#9dff2c] transition-all duration-200">
       <div className="flex items-center justify-between mb-6">

@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { getReferrerFromURL } from "../utils/Referral";
 import { ContractService } from "../utils/Contracts";
 // import { useRoutes } from 'react-router';
-import { ethers } from "ethers";
-export function useReferralLanding(contractService: ContractService | null) {
+ export function useReferralLanding(contractService: ContractService | null) {
   const [referrer, setReferrer] = useState<string | null>(null);
   const [isValidReferrer, setIsValidReferrer] = useState<boolean>(false);
   //   const router = useRouter();

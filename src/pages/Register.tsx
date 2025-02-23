@@ -7,7 +7,7 @@ import { useState } from "react";
 export const RegisterPage: React.FC<{ addresses: ContractAddresses }> = ({
   addresses,
 }) => {
-  const { service, loading: serviceLoading } = useContractService(addresses);
+  const { service } = useContractService(addresses);
   const { referrer, isValidReferrer } = useReferralLanding(service);
   const { registerReferral, registering, error } =
     useReferralRegistration(service);

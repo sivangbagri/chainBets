@@ -4,12 +4,9 @@ import Footer from "./components/Footer";
 import {HomePage} from "./pages/HomePage";
 import { MatchList } from "./pages/MatchListingPage";
 import MatchDetailsPage from "./pages/MatchDetailsPage";
-import TournamentPage from "./pages/TournamentPage";
 import { UserDashboardPage } from "./pages/UserDashboardPage";
 import AdminPanelPage from "./pages/AdminPanelPage";
-import RewardsPage from "./pages/RewardsPage";
-import EmergencySettingsPage from "./pages/EmergencySettingsPage";
- import { CommunityPage } from "./pages/CommunityPage";
+import { CommunityPage } from "./pages/CommunityPage";
 import { RegisterPage } from "./pages/Register";
   
 
@@ -30,11 +27,8 @@ function App() {
             <Route path="/" element={<HomePage addresses={addresses} />} />
             <Route path="/matches" element={<MatchList addresses={addresses} />}/>
             <Route path="/match/:id" element={<MatchDetailsPage addresses={addresses} />}/>
-            <Route path="/tournament/:id" element={<TournamentPage />} />
-            <Route path="/my-bets" element={<UserDashboardPage addresses={addresses} />}/>
+             <Route path="/my-bets" element={<UserDashboardPage addresses={addresses} />}/>
             <Route path="/admin" element={<AdminPanelPage addresses={addresses} />} />
-            <Route path="/rewards" element={<RewardsPage />} />
-            <Route path="/emergency-settings" element={<EmergencySettingsPage />}/>
             <Route path="/community" element={<CommunityPage addresses={addresses} />}/>
             <Route path="/register" element={<RegisterPage addresses={addresses} />}/>
            </Routes>

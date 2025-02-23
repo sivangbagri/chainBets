@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useContractService } from "../../hooks/useContractService";
 import { ContractAddresses } from "../../types/Contracts";
 import { ethers } from "ethers";

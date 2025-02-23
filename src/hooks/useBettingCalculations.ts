@@ -6,7 +6,7 @@ export function useBettingCalculations(
   matchId: number,
   addresses: ContractAddresses
 ) {
-  const { service, loading, error } = useContractService(addresses);
+  const { service } = useContractService(addresses);
   const [wethBalance, setWethBalance] = useState<bigint>(BigInt(0));
   const [wethAllowance, setWethAllowance] = useState<bigint>(BigInt(0));
 

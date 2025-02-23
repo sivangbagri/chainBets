@@ -10,7 +10,7 @@ import { ContractAddresses } from "../../types/Contracts";
 interface BettingFormProps {
   match: Match;
   onBetPlaced?: () => void;
-  addresses: ContractAddresses; // Add addresses to props
+  addresses: ContractAddresses;  
 }
 
 export function BettingForm({
@@ -22,11 +22,11 @@ export function BettingForm({
   const [prediction, setPrediction] = useState<1 | 2>(1);
   const [potentialWinnings, setPotentialWinnings] = useState<bigint>(BigInt(0));
   const [placingBet, setPlacingBet] = useState(false);
-  const [validationStatus, setValidationStatus] = useState<{
-    isValid: boolean;
-    message: string;
-  }>({ isValid: true, message: "" });
-  const [diagnosticReport, setDiagnosticReport] = useState("");
+  // const [validationStatus, setValidationStatus] = useState<{
+  //   isValid: boolean;
+  //   message: string;
+  // }>({ isValid: true, message: "" });
+  // const [diagnosticReport, setDiagnosticReport] = useState("");
 
   const {
     wethBalance,
@@ -62,95 +62,7 @@ export function BettingForm({
     updatePotentialWinnings();
   }, [amount, prediction, calculatePotentialWinnings]);
 
-  const debugContractCall = async () => {
-    if (!service || !amount) return;
-
-    try {
-      const contracts = await service.getContracts();
-      const amountBigInt = ethers.parseEther(amount);
-      const signer = service.getSigner;
-
-      if (!signer || !contracts) {
-        throw new Error("Service not properly initialized");
-      }
-
-      // Get contract interface
-      const bettingPoolInterface = contracts.bettingPool.interface;
-
-      // Encode function data manually
-      const encodedData = bettingPoolInterface.encodeFunctionData("placeBet", [
-        match.id,
-        amountBigInt,
-        prediction,
-      ]);
-
-      // Try to simulate the transaction
-      const tx = {
-        to: addresses.bettingPool,
-        from: await signer.getAddress(),
-        data: encodedData,
-        value: BigInt(0),
-      };
-
-      // Log the full transaction details
-      console.log("Debug Transaction:", {
-        matchId: match.id.toString(),
-        amount: ethers.formatEther(amountBigInt),
-        prediction: prediction,
-        encodedData: encodedData,
-        from: tx.from,
-        to: tx.to,
-      });
-
-      // Try calling with provider
-      const provider = signer.provider;
-      if (provider) {
-        try {
-          const result = await provider.call(tx);
-          console.log("Provider call result:", result);
-        } catch (callError: any) {
-          console.log("Provider call error:", {
-            error: callError,
-            data: callError.data,
-            message: callError.message,
-            code: callError.code,
-          });
-
-          // Try to decode error if available
-          if (callError.data) {
-            try {
-              const decodedError = bettingPoolInterface.parseError(
-                callError.data
-              );
-              console.log("Decoded error:", decodedError);
-            } catch (decodeError) {
-              console.log("Could not decode error:", decodeError);
-            }
-          }
-        }
-      }
-
-      // Try direct contract call
-      try {
-        const gasEstimate = await contracts.bettingPool.placeBet.estimateGas(
-          match.id,
-          amountBigInt,
-          prediction,
-          { gasLimit: 500000 }
-        );
-        console.log("Gas estimate:", gasEstimate.toString());
-      } catch (gasError: any) {
-        console.log("Gas estimation error:", {
-          error: gasError,
-          message: gasError.message,
-          code: gasError.code,
-          data: gasError.data,
-        });
-      }
-    } catch (error) {
-      console.error("Debug error:", error);
-    }
-  };
+   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!amount || !service) return;
@@ -198,9 +110,7 @@ export function BettingForm({
       setAmount("");
     } catch (error: any) {
       console.error("Detailed error:", error);
-      const errorMessage = error.message || "Unknown error occurred";
-      setValidationStatus({ isValid: false, message: errorMessage });
-      throw error;
+        throw error;
     } finally {
       setPlacingBet(false);
     }

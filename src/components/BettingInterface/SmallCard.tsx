@@ -28,7 +28,7 @@ const getTimeRemaining = (endTime: number): string => {
     }
 };
 
-export const SmallCard: React.FC<MatchCardProps> = ({ match, onSelect }) => {
+export const SmallCard: React.FC<MatchCardProps> = ({ match}) => {
   return (
     <div className="flex flex-col space-y-4">
       <div className="flex items-start space-x-3">

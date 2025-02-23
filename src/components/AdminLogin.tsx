@@ -10,7 +10,7 @@ export default function AdminLogin() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "admin123") {
+    if (!isadmin && password === "admin123") {
       setIsadmin(true);
     } else {
       setIsadmin(false);

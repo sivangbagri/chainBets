@@ -1,6 +1,5 @@
 // components/ReferralLinkShare.tsx
-import React from 'react';
-import { useReferralLink } from '../../hooks/useReferralLink';
+ import { useReferralLink } from '../../hooks/useReferralLink';
 import { ContractService } from '../../utils/Contracts';
 
 /**

@@ -18,8 +18,8 @@ ChainBets is a fully decentralized, non-custodial esports betting protocol deplo
 - **BettingPool.sol** → `0x7de40c5d75a80167FA9F5b2057E7Efb7745a42e7`
 - **Tournament.sol** → `0xE0D3484017edE44614ae58621df055c078F3F719`
 - **CommunityHub.sol** → `0x5e526D7921654AC7C190547053bD906fCbe1944a`
-- **WETH Token** → `0x4200000000000000000000000000000000000006`  
- 
+- **WETH Token** → `0x4200000000000000000000000000000000000006`
+- **Repo** : https://github.com/anjolagithub/chainbets
 
 ## **Technical Stack**  
 - **Smart Contract Development:** Solidity (^0.8.24) using OpenZeppelin libraries.  

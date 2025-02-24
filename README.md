@@ -1,50 +1,35 @@
-# React + TypeScript + Vite
+<img width="343" alt="Screenshot 2025-02-22 184714" src="https://github.com/user-attachments/assets/1c890909-c8d1-42b0-8d87-75c7056afce6" />
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# **ChainBets – Trustless, On-Chain Esports Betting Protocol**  
 
-Currently, two official plugins are available:
+## **Overview**  
+ChainBets is a fully decentralized, non-custodial esports betting protocol deployed on the **Ancient8 Super Gaming Chain (L2)**, leveraging smart contracts to facilitate **transparent, immutable, and trustless** betting markets.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## **Core Features**  
+- 🏆 **On-Chain Betting Markets** – Seamless P2P and pooled betting with cryptographic guarantees.  
+- 🔄 **Trustless Smart Contract Settlement** – Winnings are auto-executed on-chain with no middlemen.  
+- 🎮 **Decentralized Matches Infrastructure** – Open-access matches creation and prize pools.  
+- 💰 **Modular Fee Mechanism** – Configurable protocol revenue (default **2.5%**) for sustainable growth.  
+- 🌍 **Community-Driven Ecosystem** – Integrated reputation system and incentive models for engagement.  
+- ⚠️ **Emergency Safeguards** – Smart contract **pause functions and admin multisig controls** to mitigate risk.  
+- ⚡ **Optimized for Ancient8 L2** – Low-cost transactions with superior scalability and finality.  
 
-## Expanding the ESLint configuration
+## **Deployed Contracts (Ancient8 Testnet)**  
+- **BettingPool.sol** → `0x7de40c5d75a80167FA9F5b2057E7Efb7745a42e7`
+- **Tournament.sol** → `0xE0D3484017edE44614ae58621df055c078F3F719`
+- **CommunityHub.sol** → `0x5e526D7921654AC7C190547053bD906fCbe1944a`
+- **WETH Token** → `0x4200000000000000000000000000000000000006`  
+ 
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## **Technical Stack**  
+- **Smart Contract Development:** Solidity (^0.8.24) using OpenZeppelin libraries.  
+- **Execution Environment:** **Foundry** – ultra-lightweight EVM testing and deployment framework.  
+- **Blockchain Layer:** **Ancient8 L2** (Chain ID: `28122024`) – Optimistic Rollup-powered scaling.  
+- **Frontend:** React + TypeScript + ethers.js v6 for seamless Web3 UX.  
 
-- Configure the top-level `parserOptions` property like this:
+## **Why ChainBets?**  
+By leveraging **self-executing smart contracts and decentralized oracles**, ChainBets ensures an unparalleled, **censorship-resistant** betting experience. The protocol's **non-custodial design, transparent settlement layer, and modular architecture** make it the future of **on-chain esports predictions**.  
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+🔥 **No middlemen. No counterparty risk. Just pure, trustless betting.**  
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+🚀 **Join the decentralized esports revolution with ChainBets!**  

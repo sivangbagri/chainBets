@@ -12,9 +12,9 @@ import { RegisterPage } from "./pages/Register";
 
 function App() {
     const addresses = {
-    bettingPool: "0x46257225Cc4b95661C0176162eB753120F1173f5",
-    tournament: "0x824956E087c7e10891E66a7e718172C905364b60",
-    communityHub: "0x6E66FeecAD0f3dCc3074f15C49cc46D7Eb5a4c8B",
+    bettingPool: "0x7de40c5d75a80167FA9F5b2057E7Efb7745a42e7",
+    tournament: "0xE0D3484017edE44614ae58621df055c078F3F719",
+    communityHub: "0x5e526D7921654AC7C190547053bD906fCbe1944a",
     weth: "0x4200000000000000000000000000000000000006",
   };
   
